@@ -15,3 +15,6 @@ Will also use an IDE to implement exception handling and a debugging utility in 
 
 ## Code Modifications
 Made changes to pixell_transaction_report.py, added exception handling in order to catch and handle errors.
+
+## Code Modificiation:
+Added funtionality to validate data and way to collect invalid data.
