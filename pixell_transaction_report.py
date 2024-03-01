@@ -13,7 +13,7 @@ valid_transaction_types = ['deposit', 'withdraw']
 customer_data = {}
 rejected_records = []
 transaction_count = 0
-transaction_counter = 0
+#transaction_counter = 0
 total_transaction_amount = 0
 valid_record = True
 error_message = ''
@@ -23,6 +23,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 try:
     with open('bank_data.csv', 'r') as csv_file:
         reader = csv.reader(csv_file)
+        next(reader) #skips header row when printing out rejected_records
         for row in reader:
             # Reset valid record and error message for each iteration
             valid_record = True
@@ -52,12 +53,12 @@ try:
                     customer_data[customer_id] = {'balance': 0, 'transactions': []}
 
                 # Update the customer's account balance based on the transaction type
-                elif transaction_type == 'deposit':
+                if transaction_type == 'deposit':
                     customer_data[customer_id]['balance'] += transaction_amount
                     transaction_count += 1
                     total_transaction_amount += transaction_amount
-                elif transaction_type == 'withdrawal':
-                    customer_data[customer_id]['balance'] += transaction_amount
+                if transaction_type == 'withdraw':
+                    customer_data[customer_id]['balance'] -= transaction_amount
                     transaction_count += 1
                     total_transaction_amount += transaction_amount
                 
@@ -66,8 +67,8 @@ try:
             
             ### COLLECT INVALID RECORDS ###
             else:
-                invalid_record = (transaction_type or transaction_amount, error_message)
-                rejected_records.append(invalid_record)
+                invalid_record = (row, error_message) # tuple of row with invalid data and error message
+                rejected_records.append(invalid_record) # adds tuple to list of rejected records
 
 
     print("PiXELL River Transaction Report\n===============================\n")
@@ -82,7 +83,7 @@ try:
             amount, type = transaction
             print(f"\t{type.capitalize()}: {amount}")
 
-    print(f"\nAVERAGE TRANSACTION AMOUNT: {(total_transaction_amount / transaction_counter)}")
+    print(f"\nAVERAGE TRANSACTION AMOUNT: {(total_transaction_amount / transaction_count)}")
 
     print("\nREJECTED RECORDS\n================")
     for record in rejected_records:

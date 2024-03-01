@@ -18,3 +18,15 @@ Made changes to pixell_transaction_report.py, added exception handling in order 
 
 ## Code Modificiation:
 Added funtionality to validate data and way to collect invalid data.
+
+## Code modification:
+line 85 Deleted transaction_counter from code. Replaced it with transaction_count to avoid division by zero
+
+## Code modification:
+line 55 and 59 Removed both elif and replaced with if statements.
+
+# Code modification:
+line 59 changed 'withdrawal' with valid transaction 'withdraw'
+
+# Code modification:
+line 26 Added code to skip header row of rejected_records
